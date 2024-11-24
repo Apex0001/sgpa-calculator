@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SGPA Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 800px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 150px;
+            margin-bottom: 2px;
+            color: rgb(24, 48, 47);
+            text-decoration: underline;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        input {
+            width: 80%;
+            padding: 8px;
+            font-size: 14px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #result {
+            text-align: center;
+            margin-top: 20px;
+        }
+        input.wwe{
+            background: #bcbaba;
+        }
+        input.wwe2{
+            background: #bcbaba;
+        }
+        input.wwe3{
+            background: #bcbaba;
+        }
+        input.wwe4{
+            background-color: aquamarine;
+        }
+        p.wwe5{
+            text-decoration: underline;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Made by RK</h1>
+        <h2 class="wwe6">SGPA Calculator</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Subject</th>
+                    <th>ST Marks (Best of 2)</th>
+                    <th>Internal Marks</th>
+                    <th>End Sem Marks</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>PSS</td>
+                    <td><input type="number" id="PSS_ST" placeholder="Out of 80"></td>
+                    <td><input type="number" id="PSS_Internal" placeholder="Out of 20"></td>
+                    <td><input type="number" id="PSS_EndSem" placeholder="Out of 60"></td>
+                </tr>
+                <tr>
+                    <td>CASA</td>
+                    <td><input type="number" id="CASA_ST" placeholder="Out of 80"></td>
+                    <td><input type="number" id="CASA_Internal" placeholder="Note:- Out of 10" class="wwe4"></td>
+                    <td><input type="number" id="CASA_EndSem" placeholder="Out of 60"></td>
+                </tr>
+                <tr>
+                    <td>MCP / DSMA</td>
+                    <td><input type="number" id="DSMA_ST" placeholder="Out of 80"></td>
+                    <td><input type="number" id="DSMA_Internal" placeholder="Out of 20"></td>
+                    <td><input type="number" id="DSMA_EndSem" placeholder="Out of 60"></td>
+                </tr>
+                <tr>
+                    <td>IWT</td>
+                    <td><input type="number" id="IWT_ST" placeholder="Out of 80"></td>
+                    <td><input type="number" id="IWT_Internal" placeholder="Out of 20"></td>
+                    <td><input type="number" id="IWT_EndSem" placeholder="Out of 60"></td>
+                </tr>
+                <tr>
+                    <td>CS</td>
+                    <td><input type="number" id="CS_ST" placeholder="Out of 40"></td>
+                    <td><input type="number" id="CS_Internal" placeholder="Not Applicable" class="wwe3" disabled></td>
+                    <td><input type="number" id="CS_EndSem" placeholder="Out of 60"></td>
+                </tr>
+                <tr>
+                    <td>Eng Expo</td>
+                    <td><input type="number" id="EngExpo_ST" placeholder="Not Applicable" class="wwe" disabled></td>
+                    <td><input type="number" id="EngExpo_Internal" placeholder="Not Applicable" class="wwe2" disabled></td>
+                    <td><input type="number" id="EngExpo_EndSem" placeholder="Out of 100"></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <button onclick="calculateSGPA()">Calculate SGPA</button>
+
+        <div id="result">
+            <h2>Your SGPA: <span id="sgpa"></span></h2>
+        </div>
+        <div class="additional-text">
+            <p>Note:-</p>
+            <p class="wwe5">1. CASA has internal of 10 marks only</p>
+            <p>2. Use Desktop mode for better expierence</p>
+            <p>3. Wondering How's SGPA is being calculated here is the source: <a href="https://drive.google.com/file/d/16Uun1jQq8R1LnruVi0y_7oWW73ZA9BAY/view?usp=sharing" target="_blank">Clicke here</a>  it is from the Academic Program Guide of Our course, available on the University's website</p>
+            <p>4. There is no End Sem of 'Eng Expo' but we are asking the accuracy that you got in the completed course to calculate it's grade point. if you are unsure about that then write 75 in the Eng Expo End Sem marks so that it will generate a grade point of 9, which is the most ideal case</p>
+        </div>
+    <script>
+        function calculateSGPA() {
+            // Get marks input values for each subject
+            const PSS_ST = parseFloat(document.getElementById("PSS_ST").value);
+            const PSS_Internal = parseFloat(document.getElementById("PSS_Internal").value);
+            const PSS_EndSem = parseFloat(document.getElementById("PSS_EndSem").value);
+
+            const CASA_ST = parseFloat(document.getElementById("CASA_ST").value);
+            const CASA_Internal = parseFloat(document.getElementById("CASA_Internal").value);
+            const CASA_EndSem = parseFloat(document.getElementById("CASA_EndSem").value);
+
+            const DSMA_ST = parseFloat(document.getElementById("DSMA_ST").value);
+            const DSMA_Internal = parseFloat(document.getElementById("DSMA_Internal").value);
+            const DSMA_EndSem = parseFloat(document.getElementById("DSMA_EndSem").value);
+
+            const IWT_ST = parseFloat(document.getElementById("IWT_ST").value);
+            const IWT_Internal = parseFloat(document.getElementById("IWT_Internal").value);
+            const IWT_EndSem = parseFloat(document.getElementById("IWT_EndSem").value);
+
+            const CS_ST = parseFloat(document.getElementById("CS_ST").value);
+            const CS_EndSem = parseFloat(document.getElementById("CS_EndSem").value);
+
+            const EngExpo_EndSem = parseFloat(document.getElementById("EngExpo_EndSem").value);
+
+            // Calculate the total marks and percentages for each subject
+            const PSS_Percentage = calculatePercentage(PSS_ST, 80, PSS_Internal, 20, PSS_EndSem, 60);
+            const CASA_Percentage = calculatePercentage(CASA_ST, 80, CASA_Internal, 10, CASA_EndSem, 60);
+            const DSMA_Percentage = calculatePercentage(DSMA_ST, 80, DSMA_Internal, 20, DSMA_EndSem, 60);
+            const IWT_Percentage = calculatePercentage(IWT_ST, 80, IWT_Internal, 20, IWT_EndSem, 60);
+            const CS_Percentage = calculatePercentage(CS_ST, 40, 0, 0, CS_EndSem, 60);
+            const EngExpo_Percentage = calculatePercentage(0, 0, 0, 0, EngExpo_EndSem, 100);
+
+            // Get the grade points for each subject
+            const gradePoints = {
+                PSS: getGradePoint(PSS_Percentage),
+                CASA: getGradePoint(CASA_Percentage),
+                DSMA: getGradePoint(DSMA_Percentage),
+                IWT: getGradePoint(IWT_Percentage),
+                CS: getGradePoint(CS_Percentage),
+                EngExpo: getGradePoint(EngExpo_Percentage)
+            };
+
+            // Credits for each subject
+            const credits = {
+                PSS: 5,
+                CASA: 5,
+                DSMA: 4,
+                IWT: 4,
+                CS: 2,
+                EngExpo: 2
+            };
+
+            // Calculate total credit points and total credits
+            let totalCredits = 0;
+            let totalPoints = 0;
+            for (let subject in gradePoints) {
+                totalCredits += credits[subject];
+                totalPoints += gradePoints[subject] * credits[subject];
+            }
+
+            // Calculate SGPA
+            const sgpa = totalPoints / totalCredits;
+
+            // Display SGPA
+            document.getElementById("sgpa").innerText = sgpa.toFixed(2);
+        }
+
+        // Function to calculate percentage
+        function calculatePercentage(stMarks, stMax, internalMarks, internalMax, endSemMarks, endSemMax) {
+            return ((stMarks + internalMarks + endSemMarks) / (stMax + internalMax + endSemMax)) * 100;
+        }
+
+        // Function to calculate grade point based on percentage
+        function getGradePoint(percentage) {
+            if (percentage >= 80) return 10;
+            if (percentage >= 70) return 9;
+            if (percentage >= 60) return 8;
+            if (percentage >= 55) return 7;
+            if (percentage >= 50) return 6;
+            if (percentage >= 45) return 5;
+            if (percentage >= 40) return 4;
+            return 0;
+        }
+    </script>
+
+</body>
+</html>
