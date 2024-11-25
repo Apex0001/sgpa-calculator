@@ -168,8 +168,48 @@
             <p>4. There is no End Sem of 'Eng Expo' but we are asking the accuracy that you got in the completed course to calculate it's grade point. if you are unsure about that then write 75 in the Eng Expo End Sem marks so that it will generate a grade point of 9, which is the most ideal case</p>
         </div>
     <script>
-        // Function to calculate SGPA
 function calculateSGPA() {
+    // Define maximum marks for each input field
+    const maxMarks = {
+        PSS_ST: 80,
+        PSS_Internal: 20,
+        PSS_EndSem: 60,
+        CASA_ST: 80,
+        CASA_Internal: 10,
+        CASA_EndSem: 60,
+        DSMA_ST: 80,
+        DSMA_Internal: 20,
+        DSMA_EndSem: 60,
+        IWT_ST: 80,
+        IWT_Internal: 20,
+        IWT_EndSem: 60,
+        CS_ST: 40,
+        CS_EndSem: 60,
+        EngExpo_EndSem: 100
+    };
+
+    // Get all input fields
+    const inputs = document.querySelectorAll("input");
+
+    // Check if any input field is empty or exceeds the maximum allowed marks
+    for (let input of inputs) {
+        if (input.disabled) continue; // Skip disabled fields
+        const value = input.value.trim();
+        if (value === "") {
+            alert(`Error: The field "${input.placeholder}" is empty.`);
+            input.focus(); // Highlight the empty field
+            return; // Exit the function
+        }
+
+        const numericValue = parseFloat(value);
+        const maxAllowed = maxMarks[input.id];
+        if (numericValue > maxAllowed) {
+            alert(`Error: The value in "${input.placeholder}" exceeds the maximum allowed marks (${maxAllowed}).`);
+            input.focus(); // Highlight the invalid field
+            return; // Exit the function
+        }
+    }
+
     // Get marks input values for each subject
     const PSS_ST = parseFloat(document.getElementById("PSS_ST").value);
     const PSS_Internal = parseFloat(document.getElementById("PSS_Internal").value);
@@ -241,7 +281,7 @@ function calculatePercentage(subject, stMarks, internalMarks, endSemMarks) {
         case 'PSS':
         case 'IWT':
         case 'DSMA':
-            return (stMarks * 0.375 + internalMarks * 1 + endSemMarks * 0.833333);
+            return (stMarks * 0.375 + internalMarks * 1 + endSemMarks * 5 / 6);
         case 'CASA':
             return (stMarks * 0.375 + internalMarks * 1 + endSemMarks * 1);
         case 'CS':
@@ -264,6 +304,8 @@ function getGradePoint(percentage) {
     if (percentage >= 40) return 4;
     return 0;
 }
+
+
 
     </script>
 
