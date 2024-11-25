@@ -192,12 +192,12 @@
             const EngExpo_EndSem = parseFloat(document.getElementById("EngExpo_EndSem").value);
 
             // Calculate the total marks and percentages for each subject
-            const PSS_Percentage = calculatePercentage(PSS_ST, 80, PSS_Internal, 20, PSS_EndSem, 60);
-            const CASA_Percentage = calculatePercentage(CASA_ST, 80, CASA_Internal, 10, CASA_EndSem, 60);
-            const DSMA_Percentage = calculatePercentage(DSMA_ST, 80, DSMA_Internal, 20, DSMA_EndSem, 60);
-            const IWT_Percentage = calculatePercentage(IWT_ST, 80, IWT_Internal, 20, IWT_EndSem, 60);
-            const CS_Percentage = calculatePercentage(CS_ST, 40, 0, 0, CS_EndSem, 60);
-            const EngExpo_Percentage = calculatePercentage(0, 0, 0, 0, EngExpo_EndSem, 100);
+            const PSS_Percentage = calculatePercentage('PSS', PSS_ST, PSS_Internal, PSS_EndSem);
+            const CASA_Percentage = calculatePercentage('CASA', CASA_ST, CASA_Internal, CASA_EndSem);
+            const DSMA_Percentage = calculatePercentage('DSMA', DSMA_ST, DSMA_Internal, DSMA_EndSem);
+            const IWT_Percentage = calculatePercentage('IWT', IWT_ST, IWT_Internal, IWT_EndSem);
+            const CS_Percentage = calculatePercentage('CS', CS_ST, 0, CS_EndSem);
+            const EngExpo_Percentage = calculatePercentage('EngExpo', 0, 0, EngExpo_EndSem);
 
             // Get the grade points for each subject
             const gradePoints = {
@@ -234,11 +234,22 @@
             document.getElementById("sgpa").innerText = sgpa.toFixed(2);
         }
 
-        // Function to calculate percentage
-        function calculatePercentage(stMarks, stMax, internalMarks, internalMax, endSemMarks, endSemMax) {
-            return ((stMarks + internalMarks + endSemMarks) / (stMax + internalMax + endSemMax)) * 100;
-        }
-
+        // Function to calculate percentage based on weightage breakdown
+        function calculatePercentage(subject, stMarks, internalMarks, endSemMarks) {
+        switch (subject) {
+            case 'PSS':
+            case 'IWT':
+            case 'DSMA':
+                return (stMarks * 0.375 + internalMarks * 1 + endSemMarks * 0.833333);
+            case 'CASA':
+                return(stMarks * 0.375 + internalMarks * 1 + endSemMarks * 1)
+            case 'CS':
+                return (stMarks * 1 + endSemMarks * 1);
+            case 'EngExpo':
+                return endSemMarks; // 100% from End Sem for Eng Expo
+            default:
+                return 0; // In case of an invalid subject
+    }
         // Function to calculate grade point based on percentage
         function getGradePoint(percentage) {
             if (percentage >= 80) return 10;
