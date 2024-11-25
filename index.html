@@ -168,99 +168,103 @@
             <p>4. There is no End Sem of 'Eng Expo' but we are asking the accuracy that you got in the completed course to calculate it's grade point. if you are unsure about that then write 75 in the Eng Expo End Sem marks so that it will generate a grade point of 9, which is the most ideal case</p>
         </div>
     <script>
-        function calculateSGPA() {
-            // Get marks input values for each subject
-            const PSS_ST = parseFloat(document.getElementById("PSS_ST").value);
-            const PSS_Internal = parseFloat(document.getElementById("PSS_Internal").value);
-            const PSS_EndSem = parseFloat(document.getElementById("PSS_EndSem").value);
+        // Function to calculate SGPA
+function calculateSGPA() {
+    // Get marks input values for each subject
+    const PSS_ST = parseFloat(document.getElementById("PSS_ST").value);
+    const PSS_Internal = parseFloat(document.getElementById("PSS_Internal").value);
+    const PSS_EndSem = parseFloat(document.getElementById("PSS_EndSem").value);
 
-            const CASA_ST = parseFloat(document.getElementById("CASA_ST").value);
-            const CASA_Internal = parseFloat(document.getElementById("CASA_Internal").value);
-            const CASA_EndSem = parseFloat(document.getElementById("CASA_EndSem").value);
+    const CASA_ST = parseFloat(document.getElementById("CASA_ST").value);
+    const CASA_Internal = parseFloat(document.getElementById("CASA_Internal").value);
+    const CASA_EndSem = parseFloat(document.getElementById("CASA_EndSem").value);
 
-            const DSMA_ST = parseFloat(document.getElementById("DSMA_ST").value);
-            const DSMA_Internal = parseFloat(document.getElementById("DSMA_Internal").value);
-            const DSMA_EndSem = parseFloat(document.getElementById("DSMA_EndSem").value);
+    const DSMA_ST = parseFloat(document.getElementById("DSMA_ST").value);
+    const DSMA_Internal = parseFloat(document.getElementById("DSMA_Internal").value);
+    const DSMA_EndSem = parseFloat(document.getElementById("DSMA_EndSem").value);
 
-            const IWT_ST = parseFloat(document.getElementById("IWT_ST").value);
-            const IWT_Internal = parseFloat(document.getElementById("IWT_Internal").value);
-            const IWT_EndSem = parseFloat(document.getElementById("IWT_EndSem").value);
+    const IWT_ST = parseFloat(document.getElementById("IWT_ST").value);
+    const IWT_Internal = parseFloat(document.getElementById("IWT_Internal").value);
+    const IWT_EndSem = parseFloat(document.getElementById("IWT_EndSem").value);
 
-            const CS_ST = parseFloat(document.getElementById("CS_ST").value);
-            const CS_EndSem = parseFloat(document.getElementById("CS_EndSem").value);
+    const CS_ST = parseFloat(document.getElementById("CS_ST").value);
+    const CS_EndSem = parseFloat(document.getElementById("CS_EndSem").value);
 
-            const EngExpo_EndSem = parseFloat(document.getElementById("EngExpo_EndSem").value);
+    const EngExpo_EndSem = parseFloat(document.getElementById("EngExpo_EndSem").value);
 
-            // Calculate the total marks and percentages for each subject
-            const PSS_Percentage = calculatePercentage('PSS', PSS_ST, PSS_Internal, PSS_EndSem);
-            const CASA_Percentage = calculatePercentage('CASA', CASA_ST, CASA_Internal, CASA_EndSem);
-            const DSMA_Percentage = calculatePercentage('DSMA', DSMA_ST, DSMA_Internal, DSMA_EndSem);
-            const IWT_Percentage = calculatePercentage('IWT', IWT_ST, IWT_Internal, IWT_EndSem);
-            const CS_Percentage = calculatePercentage('CS', CS_ST, 0, CS_EndSem);
-            const EngExpo_Percentage = calculatePercentage('EngExpo', 0, 0, EngExpo_EndSem);
+    // Calculate the total marks and percentages for each subject
+    const PSS_Percentage = calculatePercentage('PSS', PSS_ST, PSS_Internal, PSS_EndSem);
+    const CASA_Percentage = calculatePercentage('CASA', CASA_ST, CASA_Internal, CASA_EndSem);
+    const DSMA_Percentage = calculatePercentage('DSMA', DSMA_ST, DSMA_Internal, DSMA_EndSem);
+    const IWT_Percentage = calculatePercentage('IWT', IWT_ST, IWT_Internal, IWT_EndSem);
+    const CS_Percentage = calculatePercentage('CS', CS_ST, 0, CS_EndSem);
+    const EngExpo_Percentage = calculatePercentage('EngExpo', 0, 0, EngExpo_EndSem);
 
-            // Get the grade points for each subject
-            const gradePoints = {
-                PSS: getGradePoint(PSS_Percentage),
-                CASA: getGradePoint(CASA_Percentage),
-                DSMA: getGradePoint(DSMA_Percentage),
-                IWT: getGradePoint(IWT_Percentage),
-                CS: getGradePoint(CS_Percentage),
-                EngExpo: getGradePoint(EngExpo_Percentage)
-            };
+    // Get the grade points for each subject
+    const gradePoints = {
+        PSS: getGradePoint(PSS_Percentage),
+        CASA: getGradePoint(CASA_Percentage),
+        DSMA: getGradePoint(DSMA_Percentage),
+        IWT: getGradePoint(IWT_Percentage),
+        CS: getGradePoint(CS_Percentage),
+        EngExpo: getGradePoint(EngExpo_Percentage)
+    };
 
-            // Credits for each subject
-            const credits = {
-                PSS: 5,
-                CASA: 5,
-                DSMA: 4,
-                IWT: 4,
-                CS: 2,
-                EngExpo: 2
-            };
+    // Credits for each subject
+    const credits = {
+        PSS: 5,
+        CASA: 5,
+        DSMA: 4,
+        IWT: 4,
+        CS: 2,
+        EngExpo: 2
+    };
 
-            // Calculate total credit points and total credits
-            let totalCredits = 0;
-            let totalPoints = 0;
-            for (let subject in gradePoints) {
-                totalCredits += credits[subject];
-                totalPoints += gradePoints[subject] * credits[subject];
-            }
-
-            // Calculate SGPA
-            const sgpa = totalPoints / 22;
-
-            // Display SGPA
-            document.getElementById("sgpa").innerText = sgpa.toFixed(2);
-        }
-
-        // Function to calculate percentage based on weightage breakdown
-        function calculatePercentage(subject, stMarks, internalMarks, endSemMarks) {
-        switch (subject) {
-            case 'PSS':
-            case 'IWT':
-            case 'DSMA':
-                return (stMarks * 0.375 + internalMarks * 1 + endSemMarks * 0.833333);
-            case 'CASA':
-                return(stMarks * 0.375 + internalMarks * 1 + endSemMarks * 1)
-            case 'CS':
-                return (stMarks * 1 + endSemMarks * 1);
-            case 'EngExpo':
-                return endSemMarks; // 100% from End Sem for Eng Expo
-            default:
-                return 0; // In case of an invalid subject
+    // Calculate total credit points and total credits
+    let totalCredits = 0;
+    let totalPoints = 0;
+    for (let subject in gradePoints) {
+        totalCredits += credits[subject];
+        totalPoints += gradePoints[subject] * credits[subject];
     }
-        // Function to calculate grade point based on percentage
-        function getGradePoint(percentage) {
-            if (percentage >= 80) return 10;
-            if (percentage >= 70) return 9;
-            if (percentage >= 60) return 8;
-            if (percentage >= 55) return 7;
-            if (percentage >= 50) return 6;
-            if (percentage >= 45) return 5;
-            if (percentage >= 40) return 4;
-            return 0;
-        }
+
+    // Calculate SGPA
+    const sgpa = totalPoints / 22;
+
+    // Display SGPA
+    document.getElementById("sgpa").innerText = sgpa.toFixed(2);
+}
+
+// Function to calculate percentage based on weightage breakdown
+function calculatePercentage(subject, stMarks, internalMarks, endSemMarks) {
+    switch (subject) {
+        case 'PSS':
+        case 'IWT':
+        case 'DSMA':
+            return (stMarks * 0.375 + internalMarks * 1 + endSemMarks * 0.833333);
+        case 'CASA':
+            return (stMarks * 0.375 + internalMarks * 1 + endSemMarks * 1);
+        case 'CS':
+            return (stMarks * 1 + endSemMarks * 1);
+        case 'EngExpo':
+            return endSemMarks; // 100% from End Sem for Eng Expo
+        default:
+            return 0; // In case of an invalid subject
+    }
+}
+
+// Function to calculate grade point based on percentage
+function getGradePoint(percentage) {
+    if (percentage >= 80) return 10;
+    if (percentage >= 70) return 9;
+    if (percentage >= 60) return 8;
+    if (percentage >= 55) return 7;
+    if (percentage >= 50) return 6;
+    if (percentage >= 45) return 5;
+    if (percentage >= 40) return 4;
+    return 0;
+}
+
     </script>
 
 </body>
