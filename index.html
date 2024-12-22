@@ -145,7 +145,7 @@
                     <td>PSS</td>
                     <td><input type="number" id="PSS_ST" placeholder="M.M 80"></td>
                     <td><input type="number" id="PSS_Internal" placeholder="M.M 40"></td>
-                    <td><input type="number" id="PSS_Cert" placeholder="M.M 5" value="5"></td>
+                    <td><input type="number" id="PSS_Cert" placeholder="M.M 5" value="5" disabled></td>
                     <td><input type="number" id="PSS_EndSem" placeholder="M.M 60"></td>
                 </tr>
                 <tr>
@@ -166,7 +166,7 @@
                     <td>IWT</td>
                     <td><input type="number" id="IWT_ST" placeholder="M.M 80"></td>
                     <td><input type="number" id="IWT_Internal" placeholder="M.M 15"></td>
-                    <td><input type="number" id="IWT_Cert" placeholder="M.M 5" value="5"></td>
+                    <td><input type="number" id="IWT_Cert" placeholder="M.M 5" value="5" disabled></td>
                     <td><input type="number" id="IWT_EndSem" placeholder="M.M 60"></td>
                 </tr>
                 <tr>
@@ -318,12 +318,12 @@ function calculateSGPA() {
 }
 
 // Function to calculate percentage based on weightage breakdown
-function calculatePercentage(subject, stMarks, internalMarks, CertMarks, endSemMarks) {
+function calculatePercentage(subject, stMarks, internalMarks, endSemMarks) {
     switch (subject) {
         case 'PSS':
-            return (stMarks * 0.375 + internalMarks * 0.375 + CertMarks * 1 + endSemMarks * 5 / 6);
+            return (stMarks * 0.375 + internalMarks * 0.375 + 5 + endSemMarks * 5 / 6);
         case 'IWT':
-            return (stMarks * 0.375 + internalMarks * 1 + CertMarks * 1 + endSemMarks * 5 / 6);
+            return (stMarks * 0.375 + internalMarks * 1 + 5 + endSemMarks * 5 / 6);
         case 'DSMA':
             return (stMarks * 0.375 + internalMarks * 1 + endSemMarks * 5 / 6);
         case 'CASA':
