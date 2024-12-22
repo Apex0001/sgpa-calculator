@@ -318,12 +318,12 @@ function calculateSGPA() {
 }
 
 // Function to calculate percentage based on weightage breakdown
-function calculatePercentage(subject, stMarks, internalMarks, endSemMarks) {
+function calculatePercentage(subject, stMarks, internalMarks,CertMarks, endSemMarks) {
     switch (subject) {
         case 'PSS':
-            return (stMarks * 0.375 + internalMarks * 0.375 + 5 + endSemMarks * 5 / 6);
+            return (stMarks * 0.375 + internalMarks * 0.375 + CertMarks * 1 + endSemMarks * 5 / 6);
         case 'IWT':
-            return (stMarks * 0.375 + internalMarks * 1 + 5 + endSemMarks * 5 / 6);
+            return (stMarks * 0.375 + internalMarks * 1 + CertMarks * 1 + endSemMarks * 5 / 6);
         case 'DSMA':
             return (stMarks * 0.375 + internalMarks * 1 + endSemMarks * 5 / 6);
         case 'CASA':
