@@ -165,7 +165,7 @@
                 <tr>
                     <td>IWT</td>
                     <td><input type="number" id="IWT_ST" placeholder="M.M 80"></td>
-                    <td><input type="number" id="IWT_Internal" placeholder="M.M 15"></td>
+                    <td><input type="number" id="IWT_Internal" placeholder="M.M 20"></td>
                     <td><input type="number" id="IWT_Cert" placeholder="M.M 5" value="5" disabled></td>
                     <td><input type="number" id="IWT_EndSem" placeholder="M.M 60"></td>
                 </tr>
@@ -220,7 +220,7 @@ function calculateSGPA() {
         DSMA_Internal: 20,
         DSMA_EndSem: 60,
         IWT_ST: 80,
-        IWT_Internal: 15,
+        IWT_Internal: 20,
         IWT_Cert: 5,
         IWT_EndSem: 60,
         CS_ST: 40,
@@ -323,7 +323,7 @@ function calculatePercentage(subject, stMarks, internalMarks,CertMarks, endSemMa
         case 'PSS':
             return (stMarks * 0.375 + internalMarks * 0.375 + CertMarks * 1 + endSemMarks * 5 / 6);
         case 'IWT':
-            return (stMarks * 0.375 + internalMarks * 1 + CertMarks * 1 + endSemMarks * 5 / 6);
+            return (stMarks * 0.375 + internalMarks + CertMarks * 0 + endSemMarks * 5 / 6);
         case 'DSMA':
             return (stMarks * 0.375 + internalMarks * 1 + endSemMarks * 5 / 6);
         case 'CASA':
