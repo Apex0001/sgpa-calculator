@@ -1,48 +1,354 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport">
+    <title>SGPA Calculator</title>
+    <script>
+      window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: transparent;
+            
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            margin: 0;
+            background-image: url(https://i.pinimg.com/originals/1b/45/63/1b456377a9dce67a7dc3630260aa7572.gif);
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            
+        }
 
-<html>
+        .container {
+            background-color: rgba(172, 238, 185, 0.68);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgb(39, 52, 39);
+            width: 850px;
+            display: flex;
+            flex-direction: column;
+            margin-top: 100px;
+            margin-bottom: 100px;
+            opacity: 1000%;
+            height: 100%;
+            border-radius: 25px;
+        }
 
-  <head>
 
-    <title>Hello, World!</title>
+        h1.wwe7 {
+            text-align: center;
+            margin-bottom: 2px;
+            margin-top: 130px;
+        }
 
-    <style>.container{
 
-      display: flex;
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
 
-      flex-direction: column;
+        th, td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
 
-      height: 100%;
+        th {
+            background-color: #f2f2f2;
+        }
 
-      width:100%;
+        input {
+            width: 80%;
+            padding: 8px;
+            font-size: 14px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
 
-      align-items: center;
+        button {
+            background-image: radial-gradient(rgba(23, 206, 23, 0.819), rgba(105, 195, 105, 0.814));
+            color: black;
+            padding: 10px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+            align-self: center;
+            width: 800px;
+            height: 38px;
+        }
 
-      justify-content: center;
+        button:hover {
+            background-color: #45a049;
+        }
 
-      align-self: center;
+        #result {
+            text-align: center;
+            margin-top: 20px;
+        }
+        input.wwe{
+            background: #bcbaba;
+        }
+        input.wwe2{
+            background: #bcbaba;
+        }
+        input.wwe3{
+            background: #bcbaba;
+        }
+        input.wwe4{
+           
+        }
+        p.wwe5{
+            text-decoration: underline;
+        }
+        h2.wwe7{
+            text-align: center;
+            background-color: #ADD8E6;
+        }
+        .Make{
+            background-color: #aaa7a7;
+            margin-top: 50px;
+        }
+        .Form{
+            align-self: center;
+            padding-left: 100px;
+        }
+    </style>
+</head>
+<body>
 
-      text-align: center;
+    <div class="container">
+        <h1 class="wwe7">SGPA Calculator</h1>
 
-      padding-top: 350px;
+        <table class="Make">
+            <thead>
+                <tr>
+                    <th>Subject</th>
+                    <th>ST Marks (Best of 2)</th>
+                    <th>Internal Marks</th>
+                    <th>Industry Certificate</th>
+                    <th>End Sem Marks</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>PSS</td>
+                    <td><input type="number" id="PSS_ST" placeholder="M.M 80"></td>
+                    <td><input type="number" id="PSS_Internal" placeholder="M.M 40"></td>
+                    <td><input type="number" id="PSS_Cert" placeholder="M.M 5" value="5" disabled></td>
+                    <td><input type="number" id="PSS_EndSem" placeholder="M.M 60"></td>
+                </tr>
+                <tr>
+                    <td>CASA</td>
+                    <td><input type="number" id="CASA_ST" placeholder="M.M 80"></td>
+                    <td><input type="number" id="CASA_Internal" placeholder="M.M 20" class="wwe4"></td>
+                    <td><input type="text" disabled placeholder="Not Applicable" style="background: #bcbaba;"></td>
+                    <td><input type="number" id="CASA_EndSem" placeholder="M.M 60"></td>
+                </tr>
+                <tr>
+                    <td>MCP / DSMA</td>
+                    <td><input type="number" id="DSMA_ST" placeholder="M.M 80"></td>
+                    <td><input type="number" id="DSMA_Internal" placeholder="M.M 20"></td>
+                    <td><input type="text" disabled placeholder="Not Applicable" style="background: #bcbaba;"></td>
+                    <td><input type="number" id="DSMA_EndSem" placeholder="M.M 60"></td>
+                </tr>
+                <tr>
+                    <td>IWT</td>
+                    <td><input type="number" id="IWT_ST" placeholder="M.M 80"></td>
+                    <td><input type="number" id="IWT_Internal" placeholder="M.M 20"></td>
+                    <td><input type="number" id="IWT_Cert" placeholder="M.M 5" value="5" disabled></td>
+                    <td><input type="number" id="IWT_EndSem" placeholder="M.M 60"></td>
+                </tr>
+                <tr>
+                    <td>CS</td>
+                    <td><input type="number" id="CS_ST" placeholder="M.M 40"></td>
+                    <td><input type="number" id="CS_Internal" placeholder="Not Applicable" class="wwe3" disabled></td>
+                    <td><input type="text" disabled placeholder="Not Applicable" style="background: #bcbaba;"></td>
+                    <td><input type="number" id="CS_EndSem" placeholder="M.M 60"></td>
+                </tr>
+                <tr>
+                    <td>Eng Expo</td>
+                    <td><input type="number" id="EngExpo_ST" placeholder="Not Applicable" class="wwe" disabled></td>
+                    <td><input type="number" id="EngExpo_Internal" placeholder="Not Applicable" class="wwe2" disabled></td>
+                    <td><input type="text" disabled placeholder="Not Applicable" style="background: #bcbaba;"></td>
+                    <td><input type="number" id="EngExpo_EndSem" placeholder="M.M 100"></td>
+                </tr>
+            </tbody>
+        </table>
 
+        <button onclick="calculateSGPA()">Calculate SGPA</button>
+
+        <div id="result">
+            <h2>Your SGPA: <span id="sgpa"></span></h2>
+        </div>
+        <div>
+            <h2 class="wwe7">Made By RK</h2>
+        </div>
+        <div class="additional-text">
+            <p>Note:-</p>
+            <p>1. Wondering How's SGPA is being calculated here is the source: <a href="https://drive.google.com/file/d/16Uun1jQq8R1LnruVi0y_7oWW73ZA9BAY/view?usp=sharing" target="_blank">Click here</a>  it is from the Academic Program Guide of Our course, available on the University's website</p>
+            <p>2. There is no End Sem of 'Eng Expo' but we are asking the accuracy that you got in the completed course to calculate it's grade point. if you are unsure about that then write 75 in the Eng Expo End Sem marks so that it will generate a grade of A+, which is the most ideal case</p>
+            <h1>FAQs:-</h1>
+            <h3>Q1. What's the difference between SGPA and CGPA?</h3>
+            <p><b>A: The SGPA (Semester Grade Point Average) is the average of the grade points or grades for all subjects in a specific semester. On the other hand, the CGPA (Cumulative Grade Point Average) is the weighted average of all SGPAs across all semesters, taking their respective credits into account.</b>.</p>
+            <h3>Q2. How you calculate the SGPA and is it relaible?</h3>
+            <p><b>A: Well...I have created this calculator based on the Academic Program Guide (APG) and Course Handouts provided by our university. As long as the university does not revise its calculation methods outlined in these documents, this calculator will remain as reliable as the APGs and Course Handouts themselves.</b></p>
+            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfLWeIMZWgEUl6mDbiMiXU9keSDPfCh0R1iJzKOEFjzdFBQJw/viewform?embedded=true" width="640" height="418" frameborder="0" marginheight="0" marginwidth="0" class="Form">Loading…</iframe>
+        </div>
+    <script>
+function calculateSGPA() {
+    // Define maximum marks for each input field
+    const maxMarks = {
+        PSS_ST: 80,
+        PSS_Internal: 40,
+        PSS_Cert: 5,
+        PSS_EndSem: 60,
+        CASA_ST: 80,
+        CASA_Internal: 20,
+        CASA_EndSem: 60,
+        DSMA_ST: 80,
+        DSMA_Internal: 20,
+        DSMA_EndSem: 60,
+        IWT_ST: 80,
+        IWT_Internal: 20,
+        IWT_Cert: 5,
+        IWT_EndSem: 60,
+        CS_ST: 40,
+        CS_EndSem: 60,
+        EngExpo_EndSem: 100
+    };
+
+    // Get all input fields
+    const inputs = document.querySelectorAll("input");
+
+    // Check if any input field is empty or exceeds the maximum allowed marks
+    for (let input of inputs) {
+        if (input.disabled) continue; // Skip disabled fields
+        const value = input.value.trim();
+        if (value === "") {
+            alert(`Error: The field "${input.placeholder}" is empty.`);
+            input.focus(); // Highlight the empty field
+            return; // Exit the function
+        }
+
+        const numericValue = parseFloat(value);
+        const maxAllowed = maxMarks[input.id];
+        if (numericValue > maxAllowed) {
+            alert(`Error: The value in "${input.placeholder}" exceeds the maximum allowed marks (${maxAllowed}).`);
+            input.focus(); // Highlight the invalid field
+            return; // Exit the function
+        }
     }
 
-    </style>
+    // Get marks input values for each subject
+    const PSS_ST = parseFloat(document.getElementById("PSS_ST").value);
+    const PSS_Internal = parseFloat(document.getElementById("PSS_Internal").value);
+    const PSS_Cert = parseFloat(document.getElementById("PSS_Cert").value);
+    const PSS_EndSem = parseFloat(document.getElementById("PSS_EndSem").value);
 
-  </head>
+    const CASA_ST = parseFloat(document.getElementById("CASA_ST").value);
+    const CASA_Internal = parseFloat(document.getElementById("CASA_Internal").value);
+    const CASA_EndSem = parseFloat(document.getElementById("CASA_EndSem").value);
 
-  <body>
+    const DSMA_ST = parseFloat(document.getElementById("DSMA_ST").value);
+    const DSMA_Internal = parseFloat(document.getElementById("DSMA_Internal").value);
+    const DSMA_EndSem = parseFloat(document.getElementById("DSMA_EndSem").value);
 
-     <div class="container">
+    const IWT_ST = parseFloat(document.getElementById("IWT_ST").value);
+    const IWT_Internal = parseFloat(document.getElementById("IWT_Internal").value);
+    const IWT_Cert = parseFloat(document.getElementById("IWT_Cert").value);
+    const IWT_EndSem = parseFloat(document.getElementById("IWT_EndSem").value);
 
-       <h1>Enjoy you winter break</h1>
-       <h1>Stop worrying about the grades</h1>
+    const CS_ST = parseFloat(document.getElementById("CS_ST").value);
+    const CS_EndSem = parseFloat(document.getElementById("CS_EndSem").value);
 
-       <img src="https://i.pinimg.com/originals/e9/82/a4/e982a4f81d2386d3716c08e268b07572.gif" style="height: 500px; width: 500px;">
+    const EngExpo_EndSem = parseFloat(document.getElementById("EngExpo_EndSem").value);
 
-    </div>
+    // Calculate the total marks and percentages for each subject
+    const PSS_Percentage = calculatePercentage('PSS', PSS_ST, PSS_Internal, PSS_Cert, PSS_EndSem);
+    const CASA_Percentage = calculatePercentage('CASA', CASA_ST, CASA_Internal, 0, CASA_EndSem);
+    const DSMA_Percentage = calculatePercentage('DSMA', DSMA_ST, DSMA_Internal, 0, DSMA_EndSem);
+    const IWT_Percentage = calculatePercentage('IWT', IWT_ST, IWT_Internal, IWT_Cert, IWT_EndSem);
+    const CS_Percentage = calculatePercentage('CS', CS_ST, 0, 0, CS_EndSem);
+    const EngExpo_Percentage = calculatePercentage('EngExpo', 0, 0, 0, EngExpo_EndSem);
 
-  </body>
+    // Get the grade points for each subject
+    const gradePoints = {
+        PSS: getGradePoint(PSS_Percentage),
+        CASA: getGradePoint(CASA_Percentage),
+        DSMA: getGradePoint(DSMA_Percentage),
+        IWT: getGradePoint(IWT_Percentage),
+        CS: getGradePoint(CS_Percentage),
+        EngExpo: getGradePoint(EngExpo_Percentage)
+    };
 
+    // Credits for each subject
+    const credits = {
+        PSS: 5,
+        CASA: 5,
+        DSMA: 4,
+        IWT: 4,
+        CS: 2,
+        EngExpo: 2
+    };
+
+    // Calculate total credit points and total credits
+    let totalCredits = 0;
+    let totalPoints = 0;
+    for (let subject in gradePoints) {
+        totalCredits += credits[subject];
+        totalPoints += gradePoints[subject] * credits[subject];
+    }
+
+    // Calculate SGPA
+    const sgpa = totalPoints / 22;
+
+    // Display SGPA
+    document.getElementById("sgpa").innerText = sgpa.toFixed(2);
+}
+
+// Function to calculate percentage based on weightage breakdown
+function calculatePercentage(subject, stMarks, internalMarks,CertMarks, endSemMarks) {
+    switch (subject) {
+        case 'PSS':
+            return (stMarks * 0.375 + internalMarks * 0.375 + CertMarks * 1 + endSemMarks * 5 / 6);
+        case 'IWT':
+            return (stMarks * 0.375 + internalMarks + CertMarks * 0 + endSemMarks * 5 / 6);
+        case 'DSMA':
+            return (stMarks * 0.375 + internalMarks * 1 + endSemMarks * 5 / 6);
+        case 'CASA':
+            return (stMarks * 0.375 + internalMarks * 0.5 + endSemMarks * 1);
+        case 'CS':
+            return (stMarks * 1 + endSemMarks * 1);
+        case 'EngExpo':
+            return endSemMarks; // 100% from End Sem for Eng Expo
+        default:
+            return 0; // In case of an invalid subject
+    }
+}
+
+// Function to calculate grade point based on percentage
+function getGradePoint(percentage) {
+    if (percentage >= 80) return 10;
+    if (percentage >= 70) return 9;
+    if (percentage >= 60) return 8;
+    if (percentage >= 55) return 7;
+    if (percentage >= 50) return 6;
+    if (percentage >= 45) return 5;
+    if (percentage >= 40) return 4;
+    return 0;
+}
+    </script>
+
+</body>
 </html>
