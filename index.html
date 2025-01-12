@@ -1,48 +1,294 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SattaBazaar</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #282c34;
+            color: #e0e0e0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            height: 100vh;
+            overflow: hidden;
+            animation: fadeIn 1.5s ease-out;
+        }
 
-<html>
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
 
-  <head>
+        .title {
+            font-size: 60px;
+            font-weight: bold;
+            color: #ffffff;
+            text-shadow: 2px 2px 8px rgba(255, 255, 255, 0.7);
+            margin-top: 20px;
+        }
 
-    <title>Hello, World!</title>
+        .wallet {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background-color: rgba(0, 123, 255, 0.8);
+            padding: 8px 18px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 123, 255, 0.7);
+            text-shadow: 2px 2px 8px rgba(0, 123, 255, 0.5);
+        }
 
-    <style>.container{
+        .wallet img {
+            width: 30px;
+            height: 30px;
+        }
 
-      display: flex;
+        .graph-container {
+            width: 1200px;
+            height: 700px; /* Increased height */
+            background-color: rgba(30, 30, 30, 0.85);
+            border: 2px solid #333;
+            margin-top: 80px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+        }
 
-      flex-direction: column;
+        canvas {
+            width: 100%;
+            height: 100%;
+            border-radius: 15px;
+        }
 
-      height: 100%;
+        .controls {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            gap: 20px;
+            align-items: center;
+            margin-bottom: 30px;
+        }
 
-      width:100%;
+        .controls input,
+        .controls button {
+            padding: 15px;
+            font-size: 18px;
+            background-color: #333;
+            color: #e0e0e0;
+            border: 2px solid #555;
+            border-radius: 8px;
+            outline: none;
+            box-shadow: 0px 2px 8px rgba(0, 123, 255, 0.5);
+        }
 
-      align-items: center;
+        .controls button {
+            cursor: pointer;
+            background-color: #007bff;
+            transition: background-color 0.3s, transform 0.2s;
+        }
 
-      justify-content: center;
+        .controls button:disabled {
+            background-color: #888;
+            cursor: not-allowed;
+        }
 
-      align-self: center;
+        .controls button:hover {
+            background-color: #0056b3;
+            transform: scale(1.1);
+        }
 
-      text-align: center;
+        .result {
+            margin-top: 20px;
+            font-size: 22px;
+            font-weight: bold;
+            color: #ffd700;
+            text-shadow: 2px 2px 6px rgba(255, 165, 0, 0.7);
+        }
 
-      padding-top: 200px;
+        .instructions {
+            max-width: 700px;
+            margin: 20px auto;
+            padding: 15px;
+            background-color: rgba(30, 30, 30, 0.9);
+            border: 2px solid #333;
+            border-radius: 12px;
+            font-size: 12px;
+            line-height: 1.4;
+            color: #dcdcdc;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.7);
+        }
 
-    }
+        .instructions h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
 
+        .instructions ol {
+            font-size: 12px;
+        }
+
+        @media (max-width: 1000px) {
+            .wallet, .controls, .instructions {
+                font-size: 16px;
+                width: 90%;
+            }
+
+            .graph-container {
+                width: 100%;
+                height: 600px;
+            }
+        }
     </style>
+</head>
+<body>
+    <div class="title">SATTABazaar</div>
 
-  </head>
+    <div class="wallet">
+        <img src="https://img.icons8.com/ios/452/wallet.png" alt="Wallet Icon">
+        <span id="wallet">100</span> Coins
+    </div>
+    <div class="graph-container">
+        <canvas id="graph"></canvas>
+    </div>
+    <div class="controls">
+        <input type="number" id="betAmount" placeholder="Enter Bet Amount" min="1" step="1">
+        <button onclick="placeBet('up')" id="betUp">Bet Up</button>
+        <button onclick="placeBet('down')" id="betDown">Bet Down</button>
+    </div>
+    <div class="result" id="result"></div>
 
-  <body>
-
-     <div class="container">
-
-       <h1>Enjoy you winter break</h1>
-       <h1>Stop worrying about the grades</h1>
-
-       <img src="https://i.pinimg.com/originals/e9/82/a4/e982a4f81d2386d3716c08e268b07572.gif" style="height: 500px; width: 500px;">
-
+    <div class="instructions">
+        <h3>How to Play</h3>
+        <ol>
+            <li>Start with a wallet containing 100 coins.</li>
+            <li>Enter the amount you want to bet in the input field.</li>
+            <li>Decide if the graph will end "up" or "down" and place your bet by clicking the corresponding button.</li>
+            <li>The graph animation will run for 5 seconds, fluctuating randomly.</li>
+            <li>If your prediction matches the final position of the graph (relative to the centerline):
+                <ul>
+                    <li>You win and double the amount you bet!</li>
+                </ul>
+                If your prediction is incorrect:
+                <ul>
+                    <li>You lose the amount you bet.</li>
+                </ul>
+            </li>
+            <li>Your updated wallet balance will be displayed, and you can continue playing until your wallet is empty.</li>
+        </ol>
+        <p><strong>Tip:</strong> Bet wisely to maximize your chances of building up your wallet!</p>
     </div>
 
-  </body>
+    <script>
+        let wallet = 100;
+        const walletEl = document.getElementById('wallet');
+        const resultEl = document.getElementById('result');
+        const canvas = document.getElementById('graph');
+        const ctx = canvas.getContext('2d');
 
+        // Dynamically adjust canvas height to match the container
+        const graphContainer = document.querySelector('.graph-container');
+        canvas.width = graphContainer.offsetWidth;
+        canvas.height = graphContainer.offsetHeight;
+
+        const centerY = canvas.height / 2;
+        let points = [{ x: 0, y: centerY }];
+        const totalDuration = 5000;
+        const frameInterval = 100;
+        const totalFrames = totalDuration / frameInterval;
+        const segmentLength = canvas.width / totalFrames;
+
+        function drawGraph(equator = true) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            if (equator) {
+                ctx.beginPath();
+                ctx.moveTo(0, centerY);
+                ctx.lineTo(canvas.width, centerY);
+                ctx.strokeStyle = '#fff'; /* White color for equator */
+                ctx.lineWidth = 2; /* Decreased thickness for equator */
+                ctx.stroke();
+            }
+
+            ctx.beginPath();
+            ctx.moveTo(points[0].x, points[0].y);
+            for (let i = 1; i < points.length; i++) {
+                ctx.lineTo(points[i].x, points[i].y);
+            }
+            ctx.strokeStyle = '#28a745'; /* Green color */
+            ctx.lineWidth = 3; /* Decreased thickness for graph lines */
+            ctx.stroke();
+        }
+
+        function animateGraph(callback) {
+            let frame = 0;
+            points = [{ x: 0, y: centerY }];
+            function animate() {
+                if (frame >= totalFrames) {
+                    callback();
+                    return;
+                }
+                frame++;
+
+                const lastPoint = points[points.length - 1];
+                const direction = Math.random() > 0.5 ? 1 : -1;
+                const fluctuation = Math.random() * 100;
+                const newY = Math.max(20, Math.min(canvas.height - 20, lastPoint.y + direction * fluctuation));
+                points.push({ x: lastPoint.x + segmentLength, y: newY });
+
+                drawGraph();
+                setTimeout(animate, frameInterval);
+            }
+            animate();
+        }
+
+        function placeBet(direction) {
+            const betAmount = parseInt(document.getElementById('betAmount').value, 10);
+            if (isNaN(betAmount) || betAmount <= 0 || betAmount > wallet) {
+                resultEl.textContent = 'Invalid bet amount.';
+                return;
+            }
+
+            wallet -= betAmount;
+            walletEl.textContent = wallet;
+            resultEl.textContent = 'Animating... Please wait';
+
+            document.getElementById('betUp').disabled = true;
+            document.getElementById('betDown').disabled = true;
+
+            animateGraph(() => {
+                const finalPoint = points[points.length - 1];
+                const isUp = finalPoint.y < centerY;
+                const win = (direction === 'up' && isUp) || (direction === 'down' && !isUp);
+
+                if (win) {
+                    wallet += betAmount * 2;
+                    resultEl.textContent = `You won! Your bet doubled to ${betAmount * 2} coins.`;
+                } else {
+                    resultEl.textContent = 'You lost! Better luck next time.';
+                }
+
+                walletEl.textContent = wallet;
+
+                document.getElementById('betUp').disabled = false;
+                document.getElementById('betDown').disabled = false;
+            });
+        }
+
+        drawGraph();
+    </script>
+</body>
 </html>
