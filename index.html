@@ -18,6 +18,8 @@
             height: 100vh;
             overflow: hidden;
             animation: fadeIn 1.5s ease-out;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         @keyframes fadeIn {
@@ -141,21 +143,34 @@
             font-size: 12px;
         }
 
-        @media (max-width: 1000px) {
-            .wallet, .controls, .instructions {
-                font-size: 16px;
-                width: 90%;
+        /* Force desktop view on small screens */
+        @media (max-width: 1024px) {
+            body {
+                overflow-x: hidden; /* Prevent horizontal scroll */
+                width: 100%;
             }
 
             .graph-container {
+                width: 100%; /* Responsive width */
+                height: 600px; /* Adjusted height */
+            }
+
+            .controls {
                 width: 100%;
-                height: 600px;
+                justify-content: space-evenly;
+            }
+
+            .wallet {
+                top: 20px;
+                right: 20px;
+                width: 150px;
+                font-size: 16px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="title">SATTABazaar</div>
+    <div class="title">SattaBazaar</div>
 
     <div class="wallet">
         <img src="https://img.icons8.com/ios/452/wallet.png" alt="Wallet Icon">
